@@ -1,27 +1,33 @@
 package com.juninhoegger.workshopmongo.domain;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 import static java.util.Objects.hash;
 
+@Document
 public class User implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Id
     private String id;
+
     private String name;
-    private String emai;
+    private String email;
 
     public User() {
     }
 
-    public User(String id, String name, String emai) {
+    public User(String id, String name, String email) {
         this.id = id;
         this.name = name;
-        this.emai = emai;
+        this.email = email;
     }
 
     public String getId() {
@@ -40,12 +46,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getEmai() {
-        return emai;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmai(String emai) {
-        this.emai = emai;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
