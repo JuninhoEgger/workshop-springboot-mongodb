@@ -1,6 +1,7 @@
 package com.juninhoegger.workshopmongo.resource;
 
 import com.juninhoegger.workshopmongo.domain.User;
+import com.juninhoegger.workshopmongo.dto.UserDTO;
 import com.juninhoegger.workshopmongo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
 import static org.springframework.http.ResponseEntity.ok;
 
 @Slf4j
@@ -22,9 +24,11 @@ public class UserResource {
     private UserService userService;
 
     @GetMapping("/find-all")
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserDTO>> findAll() {
         log.info("Buscando todos os usuários do banco");
-        return ok().body(userService.findAll());
+        List<User> userList = userService.findAll();
+        List<UserDTO> userDTOList = userList.stream().map(UserDTO::new).collect(toList());
+        return ok().body(userDTOList);
     }
 
 }

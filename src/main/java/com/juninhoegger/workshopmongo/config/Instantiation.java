@@ -15,7 +15,7 @@ public class Instantiation implements CommandLineRunner {
     private UserRepository userRepository;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         //Deleta os dados do banco de teste
         userRepository.deleteAll();
