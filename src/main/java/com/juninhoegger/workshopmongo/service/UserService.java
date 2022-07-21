@@ -1,6 +1,7 @@
 package com.juninhoegger.workshopmongo.service;
 
 import com.juninhoegger.workshopmongo.domain.User;
+import com.juninhoegger.workshopmongo.dto.UserDTO;
 import com.juninhoegger.workshopmongo.exception.ObjectNotFoundException;
 import com.juninhoegger.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,14 @@ public class UserService {
     public User findById(String id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+    }
+
+    public User insert(User user) {
+        return userRepository.insert(user);
+    }
+
+    public User fromDTO(UserDTO userDTO) {
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 
 }
