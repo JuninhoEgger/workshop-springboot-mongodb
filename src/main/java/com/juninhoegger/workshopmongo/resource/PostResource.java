@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
+import static com.juninhoegger.workshopmongo.util.URL.convertDate;
 import static com.juninhoegger.workshopmongo.util.URL.decodeParam;
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -32,6 +34,18 @@ public class PostResource {
         text = decodeParam(text);
         List<Post> posts = postService.findByTitle(text);
         return ok().body(posts);
+    }
+
+    @GetMapping("/full-search")
+    public ResponseEntity<List<Post>> fullSearch(
+            @RequestParam(value = "text", defaultValue = "") String text,
+            @RequestParam(value = "minDate", defaultValue = "") String minDate,
+            @RequestParam(value = "maxDate", defaultValue = "") String maxDate) {
+        log.info("Fazendo uma consulta completa");
+        text = decodeParam(text);
+        Date min = convertDate(minDate, new Date(0L));
+        Date max = convertDate(maxDate, new Date());
+        return ok().body(postService.fullSearch(text, min, max));
     }
 
 }
