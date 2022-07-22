@@ -57,7 +57,7 @@ public class UserResource {
         log.info("Atualizando os dados do usuário {}", userDTO.getName());
         User user = userService.fromDTO(userDTO);
         user.setId(id);
-        user = userService.update(user);
+        userService.update(user);
         return noContent().build();
     }
 
