@@ -1,5 +1,6 @@
 package com.juninhoegger.workshopmongo.resource;
 
+import com.juninhoegger.workshopmongo.domain.Post;
 import com.juninhoegger.workshopmongo.domain.User;
 import com.juninhoegger.workshopmongo.dto.UserDTO;
 import com.juninhoegger.workshopmongo.service.UserService;
@@ -61,5 +62,10 @@ public class UserResource {
         return noContent().build();
     }
 
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        log.info("Buscando todos os posts do usuário {}", id);
+        return ok().body(userService.findById(id).getPosts());
+    }
 
 }
